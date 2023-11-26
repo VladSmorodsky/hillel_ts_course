@@ -131,6 +131,10 @@ class Group {
     return this._status;
   }
 
+  set status(status: GroupStatus) {
+    this._status = status;
+  }
+
   get level(): Level {
     return this._level;
   }
@@ -173,12 +177,12 @@ class Student {
     return new Date().getFullYear() - this.birthYear;
   }
 
-  set visits(visit: Visit) {
-    this._visits.push(visit)
+  set visits(visits: Visit[]) {
+    this._visits = visits
   }
 
-  set grades(grade: Grade) {
-    this._grades.push(grade);
+  set grades(grades: Grade[]) {
+    this._grades = grades;
   }
 
   getPerformanceRating(): number {
