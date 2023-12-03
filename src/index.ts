@@ -54,8 +54,8 @@ class Student {
     this._grades.push(grade);
   }
 
-  setVisit(visit: any): void {
-    this._grades.push(visit);
+  setVisit(visit: Visit): void {
+    this._visits.push(visit);
   }
 
   getPerformanceRating(): number {
