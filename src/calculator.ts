@@ -48,3 +48,9 @@ enum OperationEnum {
   'MUL' = '*',
   'DIVISION' = '/'
 }
+
+const calculator: Calculator = new Calculator();
+let value1: number = 5;
+let value2: number = 5;
+
+const multiplyResult = calculate(calculator, value1, value2, OperationEnum.MUL);

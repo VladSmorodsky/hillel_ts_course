@@ -36,3 +36,7 @@ var OperationEnum;
     OperationEnum["MUL"] = "*";
     OperationEnum["DIVISION"] = "/";
 })(OperationEnum || (OperationEnum = {}));
+var calculator = new Calculator();
+var value1 = 5;
+var value2 = 5;
+var multiplyResult = calculate(calculator, value1, value2, OperationEnum.MUL);
