@@ -56,6 +56,9 @@ var BookService = /** @class */ (function () {
     BookService.prototype.addBook = function (book) {
         this.books.push(book);
     };
+    BookService.prototype.getBooks = function () {
+        return this.books;
+    };
     return BookService;
 }());
 var bookService = new BookService();
@@ -69,3 +72,4 @@ bookService.addBook(book2);
 bookService.addBook(book3);
 var authorOneBooks = bookService.getBooksByAuthor(authorOne);
 var authorTwoBooks = bookService.getBooksByAuthor(authorTwo);
+var books = bookService.getBooks();
