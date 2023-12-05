@@ -23,13 +23,19 @@ interface IBook {
 }
 
 interface IBookService {
+  authors: IAuthor[]
+
   books: IBook[]
 
   getBooks(): IBook[]
 
+  getAuthors(): IAuthor[]
+
   getBooksByAuthor(author: IAuthor): IBook[]
 
   addBook(book: IBook): void
+
+  addAuthor(author: IAuthor): void
 }
 
 class Author implements IAuthor {
@@ -91,6 +97,7 @@ class Book implements IBook {
 
 class BookService implements IBookService {
   books: IBook[] = [];
+  authors: IAuthor[] = [];
 
   getBooksByAuthor(author: IAuthor): IBook[] {
     return this.books.filter((book) => {
@@ -107,12 +114,25 @@ class BookService implements IBookService {
   getBooks(): IBook[] {
     return this.books;
   }
+
+  getAuthors(): IAuthor[] {
+    return this.authors;
+  }
+
+  addAuthor(author: IAuthor): void {
+    this.authors.push(author)
+  }
 }
 
 const bookService = new BookService();
 
 const authorOne = new Author('William', 'Shakespeare');
 const authorTwo = new Author('Jack', 'London');
+
+bookService.addAuthor(authorOne);
+bookService.addAuthor(authorTwo);
+
+const authors: IAuthor[] = bookService.getAuthors();
 
 const book1 = new Book('Hamlet', authorOne, 300);
 const book2 = new Book('Romeo and Juliet', authorOne, 260);

@@ -46,6 +46,7 @@ var Book = /** @class */ (function () {
 var BookService = /** @class */ (function () {
     function BookService() {
         this.books = [];
+        this.authors = [];
     }
     BookService.prototype.getBooksByAuthor = function (author) {
         return this.books.filter(function (book) {
@@ -59,11 +60,20 @@ var BookService = /** @class */ (function () {
     BookService.prototype.getBooks = function () {
         return this.books;
     };
+    BookService.prototype.getAuthors = function () {
+        return this.authors;
+    };
+    BookService.prototype.addAuthor = function (author) {
+        this.authors.push(author);
+    };
     return BookService;
 }());
 var bookService = new BookService();
 var authorOne = new Author('William', 'Shakespeare');
 var authorTwo = new Author('Jack', 'London');
+bookService.addAuthor(authorOne);
+bookService.addAuthor(authorTwo);
+var authors = bookService.getAuthors();
 var book1 = new Book('Hamlet', authorOne, 300);
 var book2 = new Book('Romeo and Juliet', authorOne, 260);
 var book3 = new Book('The Call of the Wild', authorTwo, 260);
