@@ -2,7 +2,7 @@
   "name": "hillel-ts",
   "version": "1.0.0",
   "description": "Learn Typescript course",
-  "main": "src/index.ts",
+  "main": "src/calculator.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
