@@ -25,7 +25,7 @@ var Square = /** @class */ (function (_super) {
     Square.prototype.calculateArea = function () {
         return this.a * this.a;
     };
-    Square.prototype.printFormula = function () {
+    Square.prototype.print = function () {
         console.log("a * a = ".concat(this.a, " * ").concat(this.a));
     };
     return Square;

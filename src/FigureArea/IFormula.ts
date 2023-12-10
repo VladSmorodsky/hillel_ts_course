@@ -1,3 +1,3 @@
 export interface IFormula {
-  printFormula(): void;
+  print(): void;
 }

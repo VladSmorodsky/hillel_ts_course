@@ -10,7 +10,7 @@ export class Rectangle extends Figure implements IFormula{
     return this.a * this.b;
   }
 
-  printFormula(): void {
+  print(): void {
     console.log(`a * b = ${this.a} * ${this.b}`);
   }
 }

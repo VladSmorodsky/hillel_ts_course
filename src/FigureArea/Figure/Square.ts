@@ -10,7 +10,7 @@ export class Square extends Figure implements IFormula {
     return this.a * this.a;
   }
 
-  printFormula(): void {
+  print(): void {
     console.log(`a * a = ${this.a} * ${this.a}`);
   }
 }

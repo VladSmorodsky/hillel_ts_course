@@ -25,7 +25,7 @@ var Rectangle = /** @class */ (function (_super) {
     Rectangle.prototype.calculateArea = function () {
         return this.a * this.b;
     };
-    Rectangle.prototype.printFormula = function () {
+    Rectangle.prototype.print = function () {
         console.log("a * b = ".concat(this.a, " * ").concat(this.b));
     };
     return Rectangle;
