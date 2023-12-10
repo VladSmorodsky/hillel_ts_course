@@ -20,7 +20,12 @@ var Figure_1 = require("./Figure");
 var Rectangle = /** @class */ (function (_super) {
     __extends(Rectangle, _super);
     function Rectangle(name, color, a, b) {
-        return _super.call(this, name, color, a, b) || this;
+        var _this = _super.call(this, name, color) || this;
+        _this.name = name;
+        _this.color = color;
+        _this.a = a;
+        _this.b = b;
+        return _this;
     }
     Rectangle.prototype.calculateArea = function () {
         return this.a * this.b;

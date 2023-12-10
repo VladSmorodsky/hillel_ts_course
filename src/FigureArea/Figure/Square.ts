@@ -2,8 +2,8 @@ import {Figure} from "./Figure";
 import {IFormula} from "../IFormula";
 
 export class Square extends Figure implements IFormula {
-  constructor(name: string, color: string, a: number) {
-    super(name, color, a);
+  constructor(public readonly name, public readonly color, private a: number) {
+    super(name, color);
   }
 
   calculateArea(): number {

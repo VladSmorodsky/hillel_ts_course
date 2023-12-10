@@ -1,8 +1,14 @@
 import {Figure} from "./Figure";
 
 export class Triangle extends Figure {
-  constructor(name, color, a, b, c) {
-    super(name, color, a, b, c);
+  constructor(
+    public readonly name,
+    public readonly color,
+    private a: number,
+    private b: number,
+    private c: number
+  ) {
+    super(name, color);
   }
 
   calculateArea(): number {

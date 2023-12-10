@@ -20,7 +20,11 @@ var Figure_1 = require("./Figure");
 var Square = /** @class */ (function (_super) {
     __extends(Square, _super);
     function Square(name, color, a) {
-        return _super.call(this, name, color, a) || this;
+        var _this = _super.call(this, name, color) || this;
+        _this.name = name;
+        _this.color = color;
+        _this.a = a;
+        return _this;
     }
     Square.prototype.calculateArea = function () {
         return this.a * this.a;

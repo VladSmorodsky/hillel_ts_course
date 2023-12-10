@@ -1,11 +1,11 @@
 import {Figure} from "./Figure";
 
 export class Circle extends Figure {
-  constructor(name: string, color: string, a: number) {
-    super(name, color, a);
+  constructor(public readonly name: string, public readonly color: string, private radius: number) {
+    super(name, color);
   }
 
   calculateArea(): number {
-    return Math.PI * this.a * this.a;
+    return Math.PI * this.radius * this.radius;
   }
 }

@@ -19,11 +19,15 @@ exports.Circle = void 0;
 var Figure_1 = require("./Figure");
 var Circle = /** @class */ (function (_super) {
     __extends(Circle, _super);
-    function Circle(name, color, a) {
-        return _super.call(this, name, color, a) || this;
+    function Circle(name, color, radius) {
+        var _this = _super.call(this, name, color) || this;
+        _this.name = name;
+        _this.color = color;
+        _this.radius = radius;
+        return _this;
     }
     Circle.prototype.calculateArea = function () {
-        return Math.PI * this.a * this.a;
+        return Math.PI * this.radius * this.radius;
     };
     return Circle;
 }(Figure_1.Figure));

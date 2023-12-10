@@ -20,7 +20,13 @@ var Figure_1 = require("./Figure");
 var Triangle = /** @class */ (function (_super) {
     __extends(Triangle, _super);
     function Triangle(name, color, a, b, c) {
-        return _super.call(this, name, color, a, b, c) || this;
+        var _this = _super.call(this, name, color) || this;
+        _this.name = name;
+        _this.color = color;
+        _this.a = a;
+        _this.b = b;
+        _this.c = c;
+        return _this;
     }
     Triangle.prototype.calculateArea = function () {
         var p = (this.a + this.b + this.c) / 2;
