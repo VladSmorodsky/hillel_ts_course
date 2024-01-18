@@ -37,6 +37,7 @@ const taskOne = new TaskOne();
 taskOne.getValue();
 
 // Створіть декоратори MinLength, MaxLength та Email
+// Використайте попередню версію декораторів і зробіть так, щоб їх можно було використовувати разом.
 
 function EMail<T extends (...args: any) => any, A extends any[], R> (
   originalMethod: (...args) => R,
@@ -49,7 +50,7 @@ function EMail<T extends (...args: any) => any, A extends any[], R> (
       throw new Error(`Method ${String(context.name)}: Invalid email`);
     }
 
-    return originalMethod.call(this, args)
+    return originalMethod.apply(this, args)
   }
 }
 
@@ -60,7 +61,7 @@ function MinLength(minValue: number) {
   ) {
     return function (this: T, value: A) {
       if (value.length < minValue) {
-        throw new Error(`Field ${String(context.name)} length less then ${minValue} symbols`)
+        throw new Error(`Method ${String(context.name)} value length less then ${minValue} symbols`)
       }
 
       return originalMethod.apply(this, [value]);
@@ -68,14 +69,14 @@ function MinLength(minValue: number) {
   }
 }
 
-function MaxValue(maxValue: number) {
+function MaxLength(maxValue: number) {
   return function<T extends (value: string) => any, A extends string, R> (
     originalMethod: (value: string) => R,
     context: ClassMethodDecoratorContext
   ) {
     return function (this: T, value: A) {
       if (value.length > maxValue) {
-        throw new Error(`Field ${String(context.name)} length larger then ${maxValue} symbols limit`);
+        throw new Error(`Method ${String(context.name)} variable length larger then ${maxValue} symbols limit`);
       }
 
       return originalMethod.apply(this, [value]);
@@ -84,31 +85,19 @@ function MaxValue(maxValue: number) {
 }
 
 class User {
-  password: string | null;
-
-  email: string;
+  private email: string;
 
   public getEmail(): string {
     return this.email;
   }
 
   @EMail
+  @MaxLength(255)
+  @MinLength(4)
   public setEmail(email: string): void {
     this.email = email;
-  }
-
-  //TODO check decorators return type (use method replacement)
-  @MinLength(8)
-  @MaxValue(12)
-  public setPassword(password: string): void {
-    this.password = password;
-  }
-
-  public getPassword(): string | null {
-    return this.password;
   }
 }
 
 const user: User = new User();
-user.setEmail('test@example.com')
-user.setPassword('test1234fsdlkjfl;asdfk');
+user.setEmail('test@wxample.com')
