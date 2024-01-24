@@ -3,16 +3,20 @@
   "version": "1.0.0",
   "description": "Learn Typescript course",
   "main": "src/calculator.ts",
+  "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Vlad Smorodskyi",
   "license": "ISC",
   "dependencies": {
+    "@inquirer/prompts": "^3.3.0",
     "ts-node": "^10.9.1",
-    "typescript": "^5.3.2"
+    "typescript": "^5.3.2",
+    "uuid": "^9.0.1"
   },
   "devDependencies": {
+    "@types/node": "^20.11.5",
     "@typescript-eslint/eslint-plugin": "^6.5.0",
     "eslint": "^8.48.0",
     "eslint-plugin-prettier": "^5.0.0",
