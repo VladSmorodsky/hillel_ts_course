@@ -3,14 +3,12 @@
   "version": "1.0.0",
   "description": "Learn Typescript course",
   "main": "src/calculator.ts",
-  "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Vlad Smorodskyi",
   "license": "ISC",
   "dependencies": {
-    "@inquirer/prompts": "^3.3.0",
     "ts-node": "^10.9.1",
     "typescript": "^5.3.2",
     "uuid": "^9.0.1"
