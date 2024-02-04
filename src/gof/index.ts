@@ -1,3 +1,7 @@
+import {ICommand, TransactionType} from "./command/ICommand";
+import {RetryCommand} from "./command/RetryCommand";
+import {UndoCommand} from "./command/UndoCommand";
+
 type BankCurrency = 'USD' | 'UAH' | 'EU';
 
 interface IBankClient {
@@ -37,8 +41,10 @@ class BankClient implements IBankClient {
     }
 }
 
-class BankAccount {
+export class BankAccount {
     private readonly iban: string;
+    private transactionHistory: Transaction[] = [];
+    private transactionCommand: ICommand;
 
     public get info(): string {
         return `${this.currency}: ${this.balance}`;
@@ -56,18 +62,80 @@ class BankAccount {
         this.iban = 'UA12371283323'
     }
 
+    public setCommand(transactionCommand: ICommand): void {
+        this.transactionCommand = transactionCommand;
+    }
+
+    public executeTransactionCommand(transactionId: string): void {
+        this.transactionCommand.execute(this, transactionId);
+    }
+
     public holderName(): string {
         return `${this.holder.firstname} ${this.holder.lastname}`
     }
 
     public deposit(amount: number): void {
+        const transaction = new Transaction('1', amount, 'deposit');
+        this.transactionHistory.push(transaction);
+
         this.balance += amount;
     }
 
     public withdraw(amount: number): void {
         if (this.balance < amount) throw new Error(`${this.holderName()}, you have not enough money`);
 
+        const transaction = new Transaction('2', amount, 'withdraw');
+        this.transactionHistory.push(transaction);
+
         this.balance -= amount;
+    }
+
+    public getTransactionHistory(): Transaction[] {
+        return this.transactionHistory;
+    }
+
+    public getTransactionById(transactionId: string): Transaction {
+        const transaction =  this.transactionHistory.find(transaction => transaction.id === transactionId)
+        if (!transaction) throw new Error('Transaction not found')
+
+        return transaction;
+    }
+}
+
+interface ITransaction {
+    id: string,
+    amount: number,
+    transactionType: TransactionType,
+    isReturned: boolean
+}
+
+class Transaction implements ITransaction {
+    private _isReturned = false;
+    public get id(): string {
+        return this._id;
+    }
+
+    public get amount(): number {
+        return this._amount;
+    }
+
+    public get transactionType(): TransactionType {
+        return this._transactionType;
+    }
+
+    public get isReturned(): boolean {
+        return this._isReturned;
+    }
+
+    public set isReturned(isReturned) {
+        this._isReturned = isReturned;
+    }
+
+    constructor(
+        private _id: string,
+        private _amount: number,
+        private _transactionType: TransactionType
+    ) {
     }
 }
 
@@ -148,3 +216,22 @@ class CriminalRecordProvider {
         return false;
     }
 }
+
+const bank = Bank.getBank();
+const bankClient = new BankClient('Test', 'Doe', 1995, '1234567j8')
+const bankAccount = new BankAccount(bankClient, 'UAH', 500);
+bank.addAccount(bankAccount);
+
+bankAccount.deposit(60);
+bankAccount.withdraw(20);
+
+console.log(bankAccount.info);
+
+bankAccount.setCommand(new RetryCommand());
+bankAccount.executeTransactionCommand('1');
+console.log(bankAccount.info);
+
+bankAccount.setCommand(new UndoCommand());
+bankAccount.executeTransactionCommand('1');
+console.log(bankAccount.getTransactionHistory());
+console.log(bankAccount.info);
