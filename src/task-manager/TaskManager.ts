@@ -8,14 +8,10 @@ import {TaskTypeEnum} from "./enums/TaskTypeEnum";
 import {PriorityEnum} from "./enums/PriorityEnum";
 import {TaskBuilder} from "./builders/TaskBuilder";
 import {Task} from "./models/Task";
-import {Direction} from "./interfaces/ISortableStrategy";
-import {ISortableTaskStrategy, SortableTaskFields} from "./interfaces/ISortableTaskStrategy";
-import {BubbleSortTaskStrategy} from "./utils/Sorting/BubbleSortStrategy";
 import {NotificationService} from "./services/NotificationService";
 import {AppLogger} from "./utils/Logger/AppLogger";
 
 export class TaskManager {
-    private sortableStrategy: ISortableTaskStrategy = new BubbleSortTaskStrategy();
     private taskBuilder: TaskBuilder = new TaskBuilder();
     private employeeService: EmployeeService = new EmployeeService();
     private appLogger = new AppLogger();
@@ -70,7 +66,6 @@ export class TaskManager {
         })
     }
 
-
     public createTask(employee: Employee, title: string, type: TaskTypeEnum, description: string = '', priority: PriorityEnum = PriorityEnum.LOW): void {
         const newTask = this.taskBuilder.createTaskItem(title, description, priority, type);
         this.taskService.addTask(newTask);
@@ -108,13 +103,5 @@ export class TaskManager {
             data: removedTask,
             time: new Date()
         });
-    }
-
-    public sortTasksByField(sortableField: SortableTaskFields, direction: Direction): Task[] {
-        return this.sortableStrategy.sort(this.taskService.taskList, sortableField, direction);
-    }
-
-    public setSortStrategy(sortStrategy: ISortableTaskStrategy): void {
-        this.sortableStrategy = sortStrategy;
     }
 }

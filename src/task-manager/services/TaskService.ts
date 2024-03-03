@@ -4,10 +4,14 @@ import {Employee} from "../models/Employee";
 import {IFilterable} from "../interfaces/IFilterable";
 import {NotificationService} from "./NotificationService";
 import {AppError} from "../errors/AppError";
+import {ISortableTaskStrategy, SortableTaskFields} from "../interfaces/ISortableTaskStrategy";
+import {Direction} from "../interfaces/ISortableStrategy";
+import {BubbleSortTaskStrategy} from "../utils/Sorting/BubbleSortStrategy";
 
 type TaskFilter = Partial<Task>
 
 export class TaskService implements IFilterable<Task, TaskFilter> {
+    private sortableStrategy: ISortableTaskStrategy = new BubbleSortTaskStrategy();
     private _taskList: Task[] = [];
 
     public get taskList(): Task[] {
@@ -72,6 +76,14 @@ export class TaskService implements IFilterable<Task, TaskFilter> {
 
             return taskMatchedValues.length === Object.keys(filterObject).length;
         });
+    }
+
+    public sortTasksByField(sortableField: SortableTaskFields, direction: Direction): Task[] {
+        return this.sortableStrategy.sort(this.taskList, sortableField, direction);
+    }
+
+    public setSortStrategy(sortStrategy: ISortableTaskStrategy): void {
+        this.sortableStrategy = sortStrategy;
     }
 
     private findTaskById(taskId: number): Task {
